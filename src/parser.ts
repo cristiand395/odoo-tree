@@ -18,6 +18,8 @@ export class Parser {
         filePath.split(path.win32.sep).join(path.posix.sep)
       );
       this.entryFile = '/' + this.entryFile.split('/').slice(3).join('/');
+      console.log(`First if: ${this.entryFile}`);
+
       // Fix for when running wsl but selecting files held on windows file system
     } else if (
       process.platform === 'linux' &&
@@ -28,10 +30,12 @@ export class Parser {
         root,
         filePath.split(path.win32.sep).slice(1).join(path.posix.sep)
       );
+      console.log(`Else if: ${this.entryFile}`);
     }
 
     this.tree = undefined;
-    // Break down and reasemble given filePath safely for any OS using path?
+    console.log(`constructor: ${this.entryFile}`);
+    // Break down and resemble given filePath safely for any OS using path?
   }
 
   // Public method to generate component tree based on current entryFile
@@ -216,6 +220,9 @@ export class Parser {
       fileName = fileArray.find((fileStr) => fileStr.match(regEx));
       fileName ? (componentTree.filePath += path.extname(fileName)) : null;
     }
+    console.log(`getfilename-entryfile: ${this.entryFile}`);
+    console.log(`getfilename-fileName: ${fileName}`);
+
 
     return fileName;
   }

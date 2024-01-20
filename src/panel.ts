@@ -48,11 +48,11 @@ export default class ReacTreePanel {
         // Enable javascript in the webview
         enableScripts: true,
         retainContextWhenHidden: true,
-        // And restric the webview to only loading content from our extension's `media` directory.
+        // And restrict the webview to only loading content from our extension's `media` directory.
         localResourceRoots: [this._extensionUri],
       }
     );
-    
+
     // Set webview favicon
     this._panel.iconPath = vscode.Uri.joinPath(this._extensionUri, "src/media", "favicon.ico");
 
@@ -60,7 +60,7 @@ export default class ReacTreePanel {
     this._panel.webview.html = this._getHtmlForWebview(this._panel.webview);
 
     // Listen for when the panel is disposed
-    // This happens when the user closes the panel or when the panel is closed programatically
+    // This happens when the user closes the panel or when the panel is closed programmatically
     this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
     // Handle messages from the webview
@@ -68,7 +68,7 @@ export default class ReacTreePanel {
       async (msg: any) => {
         switch (msg.type) {
           case 'onFile':
-            if (!msg.value) break; //if doesnt work change to return
+            if (!msg.value) break; //if doesn't work change to return
             this.parser = new Parser(msg.value);
             this.parser.parse();
             this.updateView();
